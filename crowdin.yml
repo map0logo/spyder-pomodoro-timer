@@ -1,0 +1,15 @@
+# ----------------------------------------------------------------------------
+# Copyright © 2021, Spyder Pomodoro Timer
+#
+# Licensed under the terms of the MIT license
+# ----------------------------------------------------------------------------
+
+commit_message: '[ci skip] New %language% translation from Crowdin'
+append_commit_message: false
+files:
+  - source: /spyder_pomodoro_timer/spyder/locale/spyder_pomodoro_timer.pot
+    translation: /spyder_pomodoro_timer/spyder_pomodoro_timer/locale/%two_letters_code%/LC_MESSAGES/%file_name%.po
+    languages_mapping:
+      two_letters_code:
+        pt-BR: pt_BR
+        zh-CN: zh_CN
