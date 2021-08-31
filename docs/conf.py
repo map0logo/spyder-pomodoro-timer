@@ -65,8 +65,8 @@ master_doc = "index"
 
 # General information about the project.
 project = "Spyder Pomodoro Timer"
-copyright = "2021, Spyder Pomodoro Timer"
-author = "Spyder Pomodoro Timer"
+copyright = "2021, Francisco Palm"
+author = "Francisco Palm"
 
 # The version info for the project you"re documenting, acts as replacement
 # for |version| and |release|, also used in various other places throughout
@@ -149,7 +149,7 @@ latex_documents = [
         master_doc,
         "spyder_pomodoro_timer.tex",
         "Spyder Pomodoro Timer Documentation",
-        "Spyder Pomodoro Timer",
+        "Francisco Palm",
         "manual",
     ),
 ]

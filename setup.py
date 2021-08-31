@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # ----------------------------------------------------------------------------
-# Copyright © 2021, Spyder Pomodoro Timer
+# Copyright © 2021, Francisco Palm
 #
 # Licensed under the terms of the MIT license
 # ----------------------------------------------------------------------------
@@ -17,7 +17,7 @@ setup(
     # See: https://setuptools.readthedocs.io/en/latest/setuptools.html
     name="spyder-pomodoro-timer",
     version=__version__,
-    author="Spyder Pomodoro Timer",
+    author="Francisco Palm",
     author_email="fpalm@qu4nt.com",
     description="A very simple pomodoro timer that shows in the status bar.",
     license="MIT license",
