@@ -23,6 +23,12 @@ from spyder.utils.icon_manager import ima
 # Localization
 _ = get_translation("spyder_pomodoro_timer.spyder")
 
+# --- Constants
+# ------ Time limits by default
+
+POMODORO_DEFAULT = 25 * 60 * 1000  # 25 mins in milliseconds
+INTERVAL = 1000
+
 # ---- Widgets
 # ----------------------------------------------------------------------------
 
@@ -37,6 +43,14 @@ class PomodoroTimerStatus(BaseTimerStatus):
         super().__init__(parent)
         self.value = "25:00"
 
+        # Actual time limits
+        self.pomodoro_limit = POMODORO_DEFAULT
+        self.countdown = self.pomodoro_limit
+
+        self._interval = INTERVAL
+        self.timer.timeout.connect(self.update_timer)
+        self.timer.start(self._interval)
+
     def get_tooltip(self):
         """Override api method."""
 
@@ -50,4 +64,20 @@ class PomodoroTimerStatus(BaseTimerStatus):
         """Get current time of the timer"""
 
         return self.value
+
+    def display_time(self):
+        """Calculate the time that should be displayed."""
+
+        minutes = int((self.countdown / (1000 * 60)) % 60)
+        seconds = int((self.countdown / 1000) % 60)
+        return f"{minutes:02d}:{seconds:02d}"
+
+    def update_timer(self):
+        """Updates the timer and the current widget. Also, update the
+        task counter if a task is set."""
+
+        if self.countdown > 0:
+            # Update the current timer by decreasing the current running time by one second
+            self.countdown -= INTERVAL
+            self.value = self.display_time()
 
