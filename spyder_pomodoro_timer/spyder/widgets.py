@@ -20,13 +20,20 @@ from spyder.api.widgets.status import BaseTimerStatus
 from spyder.utils.icon_manager import ima
 from spyder.api.widgets.toolbars import ApplicationToolbar
 
+# Local imports
+from spyder_pomodoro_timer.spyder.config import (
+    CONF_SECTION,
+    CONF_DEFAULTS,
+    CONF_VERSION,
+)
+
+
 # Localization
 _ = get_translation("spyder_pomodoro_timer.spyder")
 
 # --- Constants
 # ------ Time limits by default
 
-POMODORO_DEFAULT = 25 * 60 * 1000  # 25 mins in milliseconds
 INTERVAL = 1000
 
 # ---- Widgets
@@ -43,14 +50,19 @@ class PomodoroTimerStatus(BaseTimerStatus):
     """Status bar widget to display the pomodoro timer"""
 
     ID = "pomodoro_timer_status"
-    CONF_SECTION = "spyder_pomodoro_timer"
+
+    CONF_SECTION = CONF_SECTION
+    CONF_DEFAULTS = CONF_DEFAULTS
+    CONF_VERSION = CONF_VERSION
 
     def __init__(self, parent):
         super().__init__(parent)
         self.value = "25:00"
 
         # Actual time limits
-        self.pomodoro_limit = POMODORO_DEFAULT
+        self.pomodoro_limit = self.get_conf(
+            "pomodoro_limit"
+        )
         self.countdown = self.pomodoro_limit
 
         self._interval = INTERVAL
@@ -89,3 +101,8 @@ class PomodoroTimerStatus(BaseTimerStatus):
             self.countdown -= INTERVAL
             self.value = self.display_time()
 
+    @on_conf_change(option="pomodoro_limit")
+    def set_pomodoro_limit(self, value):
+        self.pomodoro_limit = int(value) * 1000 * 60
+        self.countdown = self.pomodoro_limit
+        self.value = self.display_time()
