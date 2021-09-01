@@ -7,3 +7,15 @@
 """
 Spyder Pomodoro Timer API.
 """
+
+class PomodoroToolbarActions:
+    Start = 'start_timer'
+    Pause = 'pause_timer'
+    Stop = 'stop_timer'
+
+
+class PomodoroToolbarSections:
+    Controls = "pomodoro_timer"
+
+class PomodoroMenuSections:
+    Main = "main_section"
