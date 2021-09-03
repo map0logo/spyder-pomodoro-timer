@@ -12,6 +12,10 @@ from setuptools import setup
 
 from spyder_pomodoro_timer import __version__
 
+# read the contents of your README file
+from pathlib import Path
+this_directory = Path(__file__).parent
+long_description = (this_directory / "README.md").read_text()
 
 setup(
     # See: https://setuptools.readthedocs.io/en/latest/setuptools.html
@@ -20,6 +24,8 @@ setup(
     author="Francisco Palm",
     author_email="fpalm@qu4nt.com",
     description="A very simple pomodoro timer that shows in the status bar.",
+    long_description=long_description,
+    long_description_content_type='text/markdown',
     license="MIT license",
     url="https://github.com/map0logo/spyder-pomodoro-timer",
     python_requires='>= 3.7',
@@ -42,10 +48,12 @@ setup(
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
-        "Development Status :: 5 - Production/Stable",
+        "Development Status :: 3 - Alpha",
         "Intended Audience :: Education",
         "Intended Audience :: Science/Research",
         "Intended Audience :: Developers",
+        "Intended Audience :: End Users/Desktop",
         "Topic :: Scientific/Engineering",
+        "Topic :: Utilities"
     ],
 )
