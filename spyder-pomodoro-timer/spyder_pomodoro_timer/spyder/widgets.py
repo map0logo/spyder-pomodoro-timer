@@ -17,6 +17,7 @@ from spyder.api.translations import get_translation
 
 from spyder.api.widgets.status import BaseTimerStatus
 from spyder.utils.icon_manager import ima
+from spyder.api.widgets.toolbars import ApplicationToolbar
 
 
 # Localization
@@ -31,6 +32,12 @@ INTERVAL = 1000
 
 # ---- Widgets
 # ----------------------------------------------------------------------------
+
+
+class PomodoroTimerToolbar(ApplicationToolbar):
+    """Toolbar to add buttons to control our timer."""
+
+    ID = "pomodoro_timer_toolbar"
 
 
 class PomodoroTimerStatus(BaseTimerStatus):
@@ -50,6 +57,8 @@ class PomodoroTimerStatus(BaseTimerStatus):
         self._interval = INTERVAL
         self.timer.timeout.connect(self.update_timer)
         self.timer.start(self._interval)
+
+        self.pause = True
 
     def get_tooltip(self):
         """Override api method."""
@@ -76,7 +85,7 @@ class PomodoroTimerStatus(BaseTimerStatus):
         """Updates the timer and the current widget. Also, update the
         task counter if a task is set."""
 
-        if self.countdown > 0:
+        if self.countdown > 0 and not self.pause:
             # Update the current timer by decreasing the current running time by one second
             self.countdown -= INTERVAL
             self.value = self.display_time()
