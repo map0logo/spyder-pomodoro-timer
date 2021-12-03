@@ -20,6 +20,8 @@ from spyder.utils.icon_manager import ima
 # Local imports
 from spyder_pomodoro_timer.spyder.confpage import SpyderPomodoroTimerConfigPage
 from spyder_pomodoro_timer.spyder.container import SpyderPomodoroTimerContainer
+from spyder_pomodoro_timer.spyder.config import CONF_DEFAULTS, CONF_VERSION
+
 
 _ = get_translation("spyder_pomodoro_timer.spyder")
 
@@ -30,11 +32,13 @@ class SpyderPomodoroTimer(SpyderPluginV2):
     """
 
     NAME = "spyder_pomodoro_timer"
-    REQUIRES = [Plugins.StatusBar, Plugins.Toolbar]
+    REQUIRES = [Plugins.StatusBar, Plugins.Toolbar, Plugins.Preferences]
     OPTIONAL = []
     CONTAINER_CLASS = SpyderPomodoroTimerContainer
     CONF_SECTION = NAME
     CONF_WIDGET_CLASS = SpyderPomodoroTimerConfigPage
+    CONF_DEFAULTS = CONF_DEFAULTS
+    CONF_VERSION = CONF_VERSION
 
     # --- Signals
 
@@ -52,6 +56,11 @@ class SpyderPomodoroTimer(SpyderPluginV2):
     def on_initialize(self):
         container = self.get_container()
         print("SpyderPomodoroTimer initialized!")
+
+    @on_plugin_available(plugin=Plugins.Preferences)
+    def on_preferences_available(self):
+        preferences = self.get_plugin(Plugins.Preferences)
+        preferences.register_plugin_preferences(self)
 
     @on_plugin_available(plugin=Plugins.StatusBar)
     def on_statusbar_available(self):
